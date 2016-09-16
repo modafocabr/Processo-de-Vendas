@@ -1,1 +1,1786 @@
-<!-- cola os bagui ai -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>HUE</title>
+		
+		<link rel="stylesheet" type="text/css" href="http://fluig.totvscuritiba.com.br:7080/portal/resources/style-guide/css/fluig-style-guide.min.css">
+		<script src="http://fluig.totvscuritiba.com.br:7080/portal/resources/js/jquery/jquery.js"></script>
+		<script	src="http://fluig.totvscuritiba.com.br:7080/portal/resources/js/jquery/jquery-ui.min.js"></script>
+		<script	src="http://fluig.totvscuritiba.com.br:7080/portal/resources/js/mustache/mustache-min.js"></script>
+		<script	src="http://fluig.totvscuritiba.com.br:7080/portal/resources/style-guide/js/fluig-style-guide.min.js"></script>
+		<script type="text/javascript" >
+    
+    function limpa_formulario_cep() {
+            //Limpa valores do formulario de cep.
+            document.getElementById('rua').value=("");
+            document.getElementById('cidade').value=("");
+            document.getElementById('uf').value=("");
+    }
+
+    function meu_callback(conteudo) {
+        if (!("erro" in conteudo)) {
+            //Atualiza os campos com os valores.
+            document.getElementById('rua').value=(conteudo.logradouro);
+            document.getElementById('cidade').value=(conteudo.localidade);
+            document.getElementById('uf').value=(conteudo.uf);
+        } //end if.
+        else {
+            //CEP Não Encontrado.
+            limpa_formulario_cep();
+            alert("CEP Não encontrado.");
+        }
+    }
+        
+    function pesquisacep(valor) {
+
+        //Nova variÃ¡vel "cep" somente com dÃ­gitos.
+        var cep = valor.replace(/\D/g, '');
+
+        //Verifica se campo cep possui valor informado.
+        if (cep != "") {
+
+            //ExpressÃ£o regular para validar o CEP.
+            var validacep = /^[0-9]{8}$/;
+
+            //Valida o formato do CEP.
+            if(validacep.test(cep)) {
+
+                //Preenche os campos com "..." enquanto consulta webservice.
+                document.getElementById('rua').value="...";
+                document.getElementById('cidade').value="...";
+                document.getElementById('uf').value="...";
+
+                //Cria um elemento javascript.
+                var script = document.createElement('script');
+
+                //Sincroniza com o callback.
+                script.src = '//viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+
+                //Insere script no documento e carrega o conteÃºdo.
+                document.body.appendChild(script);
+
+            } //end if.
+            else {
+                //cep Ã© invÃ¡lido.
+                limpa_formulario_cep();
+                alert("Formato de CEP invÃ¡lido.");
+            }
+        } //end if.
+        else {
+            //cep sem valor, limpa formulario.
+            limpa_formulario_cep();
+        }
+    };
+
+    </script>
+		<!-- CUSTOM -->
+		<link href="http://fluig.totvscuritiba.com.br:7080/portal/resources/style-guide/css/fluig-style-guide-filter.min.css" rel="stylesheet" type="text/css">
+		<link href="http://fluig.totvscuritiba.com.br:7080/portal/resources/style-guide/css/fluig-style-guide-ratingstars.min.css" rel="stylesheet" type="text/css">
+		<script src="http://fluig.totvscuritiba.com.br:7080/portal/resources/style-guide/js/fluig-style-guide-filter.min.js"></script>
+		<script	src="http://fluig.totvscuritiba.com.br:7080/portal/resources/style-guide/js/fluig-style-guide-ratingstars.min.js"></script>
+		
+		<link href='http://fluig.totvscuritiba.com.br:7080/webdesk/customresources?cid=99&resourceName=temaFormulario/0.css' type='text/css' rel='stylesheet' />
+		
+		<style>.totvs-form{background-color:white!important;}</style>
+		
+	</head>
+	
+	<body class="fluig-style-guide">
+	
+		<div class="container">
+	
+			<form style="padding-left: 10px; padding-right: 10px;" class="totvs-form grid vertical create-form-components ui-sortable t0" name="createFormComponents">
+			
+				<img style="max-height: 50px; max-width: 250px;" src="http://fluig.totvscuritiba.com.br:7080/portal/resources/images/99/logo_image.png"	alt="Logo" id="logo">
+				
+				<h2 class="title-form-application">Processo de vendas</h2>
+				<div class="paragraph-is-required system-message-information alert alert-info" role="alert">Todos os campos com * sÃ£o de preenchimento obrigatÃ³rio.</div>
+				<input name="atividade" type="text" />
+				
+				<fieldset  class="atividades atividade-4">
+					
+					<legend> INFORMAÃ‡Ã•ES SOBRE A SOLICITAÃ‡ÃƒO </legend>
+				
+					<div>	
+						<div class="form-group">
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Data</label><span class="required text-danger"><strong>  *</strong></span>
+										<input class="form-control dataAtual" name="textbox0" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Hora</label>
+										<input class="form-control horaAtual" name="textbox1" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+						</div>		
+						
+						<div class="form-group">
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Solicitante</label><span class="required text-danger"><strong>  *</strong></span>
+										<input style="width: 100%;" class="form-control" name="textbox2"  data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Nome</label><span class="required text-danger"><strong>  *</strong></span>
+										<input class="form-control" name="textbox3" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>						
+						</div>
+						
+						<div class="form-field" data-type="combo">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Fonte</label>
+									<select	required="required" class="form-control" name="combo4" id="combo4" disabled>
+										<option value="Spik">Spik</option>
+										<option value="Manual">Manual</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<!--  
+								<div class="form-field col-sm-4" data-type="zoomfield">
+									<div class="form-input">
+										<div class="form-group">
+											<label for="zoom">Código</label>
+											<div class="input-group">
+												<input data-zoom="{'datasetId':'colleague','fields':[{'field':'colleagueId','label':'colleagueId','standard':true,'search':true}]}" datasetvalue="colleagueId" dataset="colleague" class="form-control" name="zoomfield5" type="zoom">
+												<div class="input-group-addon zoom-preview">
+													<span class="fluigicon fluigicon-zoom-in"></span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							-->
+							<div style="position: relative; left: 0px; top: 0px;" class="form-field col-sm-4" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Código</label>
+										<input required="required" class="form-control" name="textbox5" data-size="big" type="text">
+									</div>
+								</div>
+							</div>
+							<div style="position: relative; left: 0px; top: 0px;" class="form-field col-sm-8" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Razão Social</label>
+										<input required="required" class="form-control" name="textbox6" data-size="big" type="text">
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<br>
+						
+					</div>
+				
+				</fieldset>
+				
+<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
+
+				<fieldset class="atividades atividade-4">
+					
+					<legend> DETALHES DO PROSPECT </legend>
+				
+					<div>
+						<div class="form-group">
+							<div style="position: relative; left: 0px; top: 0px;" class="form-field col-sm-4" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>CNPJ</label><span class="required text-danger"><strong>  *</strong></span>
+										<input data-only-numbers="true" maxlength="18" mask="00.000.000/0000-00" required="required" class="form-control" name="textbox7" data-size="big" type="text">
+									</div>
+								</div>
+							</div>
+							<div class="form-field col-sm-4" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Telefone</label><span class="required text-danger"><strong>  *</strong></span>
+										<input data-only-numbers="true" maxlength="15" mask="(00) 90000-0000" required="required" class="form-control" name="textbox9" data-size="big" type="text">
+									</div>
+								</div>
+							</div>
+							<div style="position: relative; left: 0px; top: 0px;" class="form-field col-sm-4">
+								<div class="form-input">
+									<div class="form-group">
+										<label>CEP</label><span class="required text-danger"><strong>  *</strong></span>
+										<div class="input-group">
+											<input maxlength="9" mask="00000-000" required="required" class="form-control" name="cep" id="cep" data-size="big" type="text" onchange="pesquisacep(this.value);" >
+											<div class="input-group-addon ">
+												<span class="fluigicon fluigicon-zoom-in"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="form-group">
+							<div class="form-field col-sm-10" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>EndereÃ§o</label><span class="required text-danger"><strong>  *</strong></span>
+										<input class="form-control" name="rua" id="rua" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+							<div class="form-field col-sm-2" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>NÃºmero</label><span class="required text-danger"><strong>  *</strong></span>
+										<input data-only-numbers="true" class="form-control" name="num" data-size="big" type="text">
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						
+						
+
+						<div class="form-group">
+							<div style="position: relative; left: 0px; top: 0px;" class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Cidade</label><span class="required text-danger"><strong>  *</strong></span>
+										<input class="form-control" name="cidade" id="cidade"  data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Estado</label><strong>  *</strong></span>
+										<input class="form-control" name="uf" id="uf" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-field" data-type="combo">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Segmento</label>
+									<select required="required" class="form-control" name="combo10">
+										<option value="MANUFATURA">MANUFATURA</option>
+										<option value="AGROINDUSTRIA">AGROINDUSTRIA</option>
+										<option value="EDUCACIONAL">EDUCACIONAL</option>
+										<option value="SAUDE">SAUDE</option>
+										<option value="CONSTRUCAO E PROJETOS">CONSTRUCAO E PROJETOS</option>
+										<option value="FINANCIAL SERVICES">FINANCIAL SERVICES</option>
+										<option value="JURIDICO">JURIDICO</option>
+										<option value="VAREJO">VAREJO</option>
+										<option value="SERVICOS">SERVICOS</option>
+										<option value="DISTRIBUICAO">DISTRIBUICAO</option>
+										<option value="LOGISTICA">LOGISTICA</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div style="position: relative; left: 0px; top: 0px;" class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>FuncionÃ¡rios</label>
+										<input data-only-numbers="true" required="required" class="form-control" name="textbox18" data-size="big" type="text">
+									</div>
+								</div>
+							</div>
+							<div style="position: relative; left: 0px; top: 0px;" class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Faturamento</label>
+										<input required="required" data-only-numbers="true" maxlength="22" mask="#00.000.000.000.000,00" class="form-control" name="textbox218"  data-size="big" type="text">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-field" data-type="combo" onChange="meuteste()">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Origem</label>
+									<select required="required" class="form-control" name="combo17" id="combo17">
+										<option value="Eventos">Eventos</option>
+										<option value="Indicação de amigo">Indicação de amigo</option>
+										<option value="Indicação de cliente">Indicação de cliente</option>
+										<option value="Indicação de colaborador">Indicação de colaborador</option>
+										<option value="ProspecÃ§Ã£o Matriz">ProspecÃ§Ã£o Matriz</option>
+										<option value="ProspecÃ§Ã£o prÃ³pria">ProspecÃ§Ã£o prÃ³pria</option>
+										<option value="ProspecÃ§Ã£o ativa">ProspecÃ§Ã£o ativa</option>
+										<option value="ProspecÃ§Ã£o receptiva">ProspecÃ§Ã£o receptiva</option>									
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div style="position: relative; left: 0px; top: 0px;" class="form-field col-sm-6" data-type="zoomfield">
+								<div class="form-input">
+									<div class="form-group">
+										<label for="zoom">Contato</label>
+										<div class="input-group">
+											<input data-zoom="{'datasetId':'colleague','fields':[{'field':'colleagueName','label':'colleagueName','standard':true,'search':true}]}"	datasetvalue="colleagueName" dataset="colleague" class="form-control" name="zoomfield18" type="zoom">
+											<div class="input-group-addon zoom-preview">
+												<span class="fluigicon fluigicon-zoom-in"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Cargo</label>
+										<input class="form-control" name="textbox19" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Ramal</label>
+										<input data-only-numbers="true" maxlength="15" mask="(00) 90000-0000" class="form-control" name="textbox20" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Celular</label>
+										<input data-only-numbers="true" maxlength="15" mask="(00) 90000-0000" class="form-control huebr" name="textbox21" data-size="big" type="text">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-field" data-type="textbox">
+							<div class="form-input">
+								<div class="form-group">
+									<label>E-mail</label>
+									<input class="form-control huebr" name="textbox22" data-size="big" type="text">
+								</div>
+							</div>
+						</div>
+						
+						<br>
+						
+					</div>
+					
+				</fieldset>
+				
+<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
+				
+				<fieldset class="atividades atividade-4">
+					
+					<legend> DETALHES DO AGENDAMENTO </legend>
+				
+					<div>
+						<div class="form-group">
+							<div class="form-field col-sm-6" data-type="zoomfield">
+								<div class="form-input">
+									<div class="form-group">
+										<label for="zoom">Executivo</label><span class="required text-danger"><strong>  *</strong></span>
+										<div class="input-group">
+											<input data-zoom="{'datasetId':'colleague','fields':[{'field':'colleagueId','label':'colleagueId','standard':true,'search':true}]}" datasetvalue="colleagueId" dataset="colleague" class="form-control" name="zoomfield23" type="zoom">
+											<div class="input-group-addon zoom-preview">
+												<span class="fluigicon fluigicon-zoom-in"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Nome</label><span class="required text-danger"><strong>  *</strong></span>
+										<input class="form-control" name="textbox24" data-size="big" type="text" value="teste" readonly>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="form-field col-sm-6" data-type="date" data-show-properties="" data-field-name="date25">
+        							<div class="form-input">
+					           			 <div class="form-group">
+					                <label>Data</label>
+					                <div class="input-group date" id="date0">
+					                    <input type="text" class="form-control" name="date25" data-date="">
+					                    <span class="input-group-addon">
+									<span class="fluigicon fluigicon-calendar"></span>
+					                    </span>
+					                </div>
+					            </div>
+					        </div>
+							</div>
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>HorÃ¡rio</label><span class="required text-danger"><strong>  *</strong></span>
+										<input data-only-numbers="true" maxlength="8" mask="00:00:00" required="required" class="form-control" name="textbox26" data-size="big" type="text">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-field" data-type="textarea">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Observações</label><span class="required text-danger"><strong>  *</strong></span>
+									<textarea required="required" class="form-control" rows="3"	name="textarea27"  data-size="big"></textarea>
+								</div>
+							</div>
+						</div>
+						<br>
+						<br>
+						<br>
+					</div>
+
+				</fieldset>
+				
+				
+				
+<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
+				
+				<fieldset class="atividades atividade-4">
+					
+					<legend> APROVAÇÃO DO PROCESSO </legend>
+				
+					<div>
+						<div class="form-field" data-type="radio">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Processo continua?</label><span	class="required text-danger"><strong>*</strong></span>
+									<div class="radio-options">
+										<div class="radio-inline">
+											<label><input type="radio" name="condicional90" value="Sim1" required="required">Sim, agendar levantamento!</label>
+										</div>
+										<div class="radio-inline">
+											<label><input type="radio" name="condicional90" value="Sim2" required="required">Sim, agendar demonstração!</label>
+										</div>
+										<div class="radio-inline">
+											<label><input type="radio" name="condicional90" value="Não" required="required">Não, encerrar processo!</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+				
+									
+<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
+
+				<fieldset class="atividades atividade-10">
+					
+					<legend> ABORDAGEM INICIAL </legend>
+				
+					<div>
+						<div class="form-group">
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Data</label><span class="required text-danger"><strong>  *</strong></span>
+										<input class="form-control dataAtual" name="textbox29" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Hora</label><span class="required text-danger"><strong>  *</strong></span>
+										<input class="form-control horaAtual" name="textbox30" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+						</div>	
+						<div class="form-group">
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Responsável</label><span class="required text-danger"><strong>  *</strong></span>
+										<input style="width: 100%;" class="form-control" name="textbox31"  data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Nome</label><span class="required text-danger"><strong>  *</strong></span>
+										<input class="form-control" name="textbox32" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>						
+						</div>
+						<div class="form-field" data-type="combo">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Processo</label><span class="required text-danger"><strong>  *</strong></span>
+									<select required="required" class="form-control" name="combo33">
+										<option value="Continua">Continua</option>
+										<option value="Não Continua">Não Continua</option>
+										<option value="Reagendado">Reagendado</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<br>
+						<div class="form-field" data-type="tabledetail">
+							<div class="form-input">
+								<div class="form-group">
+									<label>HorÃ¡rios disponÃ­veis para agendamento</label><span class="required text-danger"><strong>  *</strong></span>
+									<table class="table">
+										<thead>
+											<tr class="tableHeadRow">
+												<th class="tableColumn" style="width:50%">Nova visita</th>
+												<th class="tableColumn" style="width:50%">HorÃ¡rio</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="tableBodyRow">
+												<td class="fs-v-align-middle">
+													<div class="form-field col-sm-12" data-type="date">
+														<div class="form-input">
+															<div class="form-group">
+																<div class="input-group date" id="visita1">
+																	<input class="form-control" name="visita1" type="text">
+																	<span class="input-group-addon">
+																		<span class="fluigicon fluigicon-calendar"></span>
+																	</span>
+																</div>
+															</div>
+														</div>
+													</div>
+												</td>
+												<td class="fs-v-align-middle">
+													<div class="form-field col-sm-12">
+													<div class="form-input">
+														<div class="form-group">
+															<div class="input-group">
+																<input data-only-numbers="true" maxlength="8" mask="00:00:00" class="form-control" name="hora1" data-size="big" type="text">
+															</div>
+														</div>
+													</div>
+													</div>
+												</td>
+											</tr>
+											<tr class="tableBodyRow">
+												<td class="fs-v-align-middle">
+													<div class="form-field col-sm-12" data-type="date">
+														<div class="form-input">
+															<div class="form-group">
+																<div class="input-group date" id="visita2">
+																	<input class="form-control" name="visita2" type="text"><span class="input-group-addon"><span class="fluigicon fluigicon-calendar"></span></span>
+																</div>
+															</div>
+														</div>
+													</div>
+												</td>
+												<td class="fs-v-align-middle">
+													<div class="form-field col-sm-12">
+													<div class="form-input">
+														<div class="form-group">
+															<div class="input-group">
+																<input data-only-numbers="true" maxlength="8" mask="00:00:00" class="form-control" name="hora2" data-size="big" type="text">
+															</div>
+														</div>
+													</div>
+													</div>
+												</td>
+											</tr>
+											<tr class="tableBodyRow">
+												<td class="fs-v-align-middle">
+													<div class="form-field col-sm-12" data-type="date">
+														<div class="form-input">
+															<div class="form-group">
+																<div class="input-group date" id="visita3">
+																	<input class="form-control" name="visita3" type="text"><span class="input-group-addon"><span class="fluigicon fluigicon-calendar"></span></span>
+																</div>
+															</div>
+														</div>
+													</div>
+												</td>
+												<td class="fs-v-align-middle">
+													<div class="form-field col-sm-12">
+													<div class="form-input">
+														<div class="form-group">
+															<div class="input-group">
+																<input data-only-numbers="true" maxlength="8" mask="00:00:00" class="form-control" name="hora3" data-size="big" type="text">
+															</div>
+														</div>
+													</div>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>					
+						<div class="form-field" data-type="textarea">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Observações</label><span class="required text-danger"><strong>  *</strong></span>
+									<textarea required="required" class="form-control" rows="3" name="textarea36"  data-size="big"></textarea>
+								</div>
+							</div>
+						</div>
+						<br>
+					</div>
+				</fieldset>
+<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
+
+				<fieldset class="atividades atividade-34">
+					
+					<legend> AGENDAMENTO DE LEVANTAMENTO </legend>
+				
+					<div>
+					
+						<!-- data e hora + observacoes -->
+						<div class="form-group">
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Data Escolhida</label><span class="required text-danger"><strong>  *</strong></span>
+										<input class="form-control" name="textbox88" data-size="big" type="text">
+									</div>
+								</div>
+							</div>
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Hora Escolhida</label><span class="required text-danger"><strong>  *</strong></span>
+										<input class="form-control" name="textbox89" data-size="big" type="text">
+									</div>
+								</div>
+							</div>
+						</div>	
+						<div class="form-field" data-type="textarea">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Observações</label><span class="required text-danger"><strong>  *</strong></span>
+									<textarea required="required" class="form-control" rows="3" name="textarea300"  data-size="big"></textarea>
+								</div>
+							</div>
+						</div>
+					
+					</div>
+					
+				</fieldset>
+				
+<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
+
+				<fieldset class="atividades atividade-14">
+					
+					<legend> LEVANTAMENTO DE NECESSIDADES </legend>
+				
+					<div>
+						<div class="form-group">
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Data</label>
+										<input class="form-control dataAtual" name="textbox38" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Hora</label>
+										<input class="form-control horaAtual" name="textbox39" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+						</div>	
+						<div class="form-group">
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Responsável</label>
+										<input style="width: 100%;" class="form-control" name="textbox41"  data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Nome</label>
+										<input class="form-control" name="textbox42" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>						
+						</div>		
+						<div class="form-field" data-type="combo">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Produto</label>
+									<select required="required" class="form-control" name="combo40">
+										<option value="Datasul">Datasul</option>
+										<option value="Logix">Logix</option>
+										<option value="Protheus">Protheus</option>
+										<option value="RM">RM</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="form-field" data-type="textarea">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Observações</label>
+									<textarea required="required" class="form-control" rows="3" name="textarea43"  data-size="big"></textarea>
+								</div>
+							</div>
+						</div>
+						<br>
+					</div>
+					
+				</fieldset>
+						
+				<fieldset class="atividades atividade-14">
+					
+					<legend> ABERTURA DE OPORTUNIDADE PARA ARQUITETURA </legend>
+				
+					<div>
+						<div class="form-field" data-type="textbox">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Nome da Empresa</label>
+									<input required="required" class="form-control" name="textbox44" data-size="big" type="text">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>NegÃ³cio da Empresa</label>
+										<input required="required" class="form-control" name="textbox45" data-size="big" type="text">
+									</div>
+								</div>
+							</div>
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Filiais</label>
+										<input data-only-numbers="true" required="required" class="form-control" name="textbox48" data-size="big" type="text">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="form-field col-sm-6" data-type="combo">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Segmento</label>
+										<select required="required" class="form-control" name="combo46">
+											<option value="opcao 1">opcao 1</option>
+											<option value="opcao 2">opcao 2</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="form-field col-sm-6" data-type="combo">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Subsegmento</label>
+										<select required="required" class="form-control" name="combo47" disabled>
+											<option value="opcao 1">opcao 1</option>
+											<option value="opcao 2">opcao 2</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<br>
+						<br>
+						<div class="form-field" data-type="tabledetail">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Motivos da busca/troca de soluÃ§Ã£o</label>
+									<table tablename="tabledetailname2" class="table" noaddbutton="true">
+										<thead>
+											<tr class="tableHeadRow">
+												<td class="fs-v-align-middle">
+													<div class="form-input">
+														<input name="linha1" class="form-control" type="text">
+													</div>
+												</td>
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="tableBodyRow">
+												<td class="fs-v-align-middle">
+													<div class="form-input">
+														<input name="column1_2" class="form-control" type="text">
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<button type="button" class="btn btn-primary" onclick="wdkAddChild('tabledetailname2')">Novo Registro</button>
+								</div>
+							</div>
+						</div>
+						<div class="form-field" data-type="tabledetail">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Setores terceirizados</label>
+									<table tablename="tabledetailname1" class="table" noaddbutton="true">
+										<thead>
+											<tr class="tableHeadRow">
+												<td class="fs-v-align-middle">
+													<div class="form-input">
+														<input name="linha2" class="form-control" type="text">
+													</div>
+												</td>
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="tableBodyRow">
+												<td class="fs-v-align-middle">
+													<div class="form-input">
+														<input name="column1_1" class="form-control" type="text">
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<button type="button" class="btn btn-primary" onclick="wdkAddChild('tabledetailname1')">Novo Registro</button>
+								</div>
+							</div>
+						</div>
+						<div class="form-field" data-type="tabledetail">
+							<div class="form-input">
+								<div class="form-group">
+									<label>SugestÃ£o de escopo inicial</label>
+									<table tablename="tabledetailname3" class="table" noaddbutton="true">
+										<thead>
+											<tr class="tableHeadRow">
+												<td class="fs-v-align-middle">
+													<div class="form-input">
+														<input name="linha3" class="form-control" type="text">
+													</div>
+												</td>
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="tableBodyRow">
+												<td class="fs-v-align-middle">
+													<div class="form-input">
+														<input name="column1_3" class="form-control" type="text">
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<button type="button" class="btn btn-primary" onclick="wdkAddChild('tabledetailname3')">Novo Registro</button>
+								</div>
+							</div>
+						</div>
+						<div class="form-field" data-type="tabledetail">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Volumetria</label>
+									<table tablename="tabledetailname4" class="table" noaddbutton="true">
+										<thead>
+											<tr class="tableHeadRow">
+												<td class="fs-v-align-middle">
+													<div class="form-input">
+														<input name="linha4" class="form-control" type="text">
+													</div>
+												</td>
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="tableBodyRow">
+												<td class="fs-v-align-middle">
+													<div class="form-input">
+														<input name="column1_4" class="form-control" type="text">
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<button type="button" class="btn btn-primary" onclick="wdkAddChild('tabledetailname4')">Novo Registro</button>
+								</div>
+							</div>
+						</div>
+						<div class="form-field" data-type="tabledetail">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Plano de aÃ§Ã£o</label>
+									<table tablename="tabledetailname5" class="table" noaddbutton="true">
+										<thead>
+											<tr class="tableHeadRow">
+												<td class="fs-v-align-middle">
+													<div class="form-input">
+														<input name="linha5" class="form-control" type="text">
+													</div>
+												</td>
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="tableBodyRow">
+												<td class="fs-v-align-middle">
+													<div class="form-input">
+														<input name="column1_5" class="form-control" type="text">
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<button type="button" class="btn btn-primary" onclick="wdkAddChild('tabledetailname5')">Novo Registro</button>
+								</div>
+							</div>
+						</div>
+						<div class="form-field" data-type="textarea">
+							<div class="form-input">
+								<div class="form-group">
+									<label>PercepÃ§Ã£o do EAR</label>
+									<textarea required="required" class="form-control" rows="3"
+										name="textarea52"  data-size="big"></textarea>
+								</div>
+							</div>
+						</div>
+						<br>
+					</div>
+				</fieldset>
+				
+
+<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
+
+				<fieldset class="atividades atividade-16">
+					
+					<legend> DEMONSTRAÃ‡ÃƒO </legend>
+				
+					<div>
+						<div class="form-group">
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Data</label>
+										<input class="form-control dataAtual" name="textbox56" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Hora</label>
+										<input class="form-control horaAtual" name="textbox57" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+						</div>	
+						<div class="form-group">
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Responsável</label>
+										<input style="width: 100%;" class="form-control" name="textbox58"  data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Nome</label>
+										<input class="form-control" name="textbox59" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>						
+						</div>
+						<div style="position: relative; left: 0px; top: 0px;" class="form-field" data-type="textarea">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Observações</label>
+									<textarea required="required" class="form-control" rows="3" name="textarea60"  data-size="big"></textarea>
+								</div>
+							</div>
+						</div>
+						<br>
+					</div>
+				</fieldset>
+
+<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
+
+				<fieldset class="atividades atividade-18">
+					
+					<legend> VALIDAR ESCOPO </legend>
+				
+					<div>
+						<div class="form-group">
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Data</label>
+										<input class="form-control dataAtual" name="textbox62" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Hora</label>
+										<input class="form-control horaAtual" name="textbox63" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+						</div>	
+						<div class="form-group">
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Responsável</label>
+										<input style="width: 100%;" class="form-control" name="textbox64"  data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Nome</label>
+										<input class="form-control" name="textbox65" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>						
+						</div>
+						<div class="form-field" data-type="textarea">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Observações</label>
+									<textarea required="required" class="form-control" rows="3" name="textarea66"  data-size="big"></textarea>
+								</div>
+							</div>
+						</div>
+						<br>
+					</div>
+				</fieldset>
+				
+				
+<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
+				
+				<fieldset class="atividades atividade-18">
+					
+					<legend> APROVAÇÃO DO PROCESSO </legend>
+				
+					<div>
+						<div class="form-field" data-type="radio">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Processo continua?</label><span	class="required text-danger"><strong>*</strong></span>
+									<div class="radio-options">
+										<div class="radio-inline">
+											<label><input type="radio" name="condicional91" value="Sim" required="required">Sim, elaborar proposta!</label>
+										</div>
+										<div class="radio-inline">
+											<label><input type="radio" name="condicional91" value="Não" required="required">Não, encerrar processo!</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+				
+
+<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
+
+				<fieldset class="atividades atividade-20">
+					
+					<legend> ELABORAR PROPOSTA </legend>
+				
+					<div>
+						<div class="form-group">
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Data</label>
+										<input class="form-control dataAtual" name="textbox68" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Hora</label>
+										<input class="form-control horaAtual" name="textbox69" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+						</div>	
+						<div class="form-group">
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Responsável</label>
+										<input style="width: 100%;" class="form-control" name="textbox70"  data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Nome</label>
+										<input class="form-control" name="textbox71" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>						
+						</div>
+						<div class="form-field" data-type="textarea">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Observações</label>
+									<textarea required="required" class="form-control" rows="3" name="textarea72"  data-size="big"></textarea>
+								</div>
+							</div>
+						</div>
+						<br>
+					</div>
+				</fieldset>
+				
+<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
+				
+				<fieldset class="atividades atividade-20">
+					
+					<legend> APROVAÇÃO DO PROCESSO </legend>
+				
+					<div>
+						<div class="form-field" data-type="radio">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Processo continua?</label><span	class="required text-danger"><strong>*</strong></span>
+									<div class="radio-options">
+										<div class="radio-inline">
+											<label><input type="radio" name="condicional92" value="Sim" required="required">Sim, negociar proposta!</label>
+										</div>
+										<div class="radio-inline">
+											<label><input type="radio" name="condicional92" value="Não" required="required">Não, encerrar processo!</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+
+<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
+
+				<fieldset class="atividades atividade-22">
+					
+					<legend> NEGOCIAR PROPOSTA </legend>
+				
+					<div>
+						<div class="form-group">
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Data</label>
+										<input class="form-control dataAtual" name="textbox74" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Hora</label>
+										<input class="form-control horaAtual" name="textbox75" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+						</div>	
+						<div class="form-group">
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Responsável</label>
+										<input style="width: 100%;" class="form-control" name="textbox77"  data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Nome</label>
+										<input class="form-control" name="textbox78" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>						
+						</div>
+						<div class="form-field" data-type="combo">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Venda</label>
+									<select required="required" class="form-control" name="combo76">
+										<option value="Concretizada">Concretizada</option>
+										<option value="Não Concretizada">Não Concretizada</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="form-field" data-type="textarea">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Observações</label>
+									<textarea required="required" class="form-control" rows="3" name="textarea79"  data-size="big"></textarea>
+								</div>
+							</div>
+						</div>
+						<br>
+					</div>
+				</fieldset>
+				
+<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
+				
+				<fieldset class="atividades atividade-22">
+					
+					<legend> APROVAÇÃO DO PROCESSO </legend>
+				
+					<div>
+						<div class="form-field" data-type="radio">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Processo continua?</label><span	class="required text-danger"><strong>*</strong></span>
+									<div class="radio-options">
+										<div class="radio-inline">
+											<label><input type="radio" name="condicional93" value="Sim" required="required">Sim, entrar com o projeto!</label>
+										</div>
+										<div class="radio-inline">
+											<label><input type="radio" name="condicional93" value="Não" required="required">Não, encerrar processo!</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+
+<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
+
+				<fieldset class="atividades atividade-24">
+					
+					<legend> ENTRADA DE PROJETO </legend>
+				
+					<div>
+						<div class="form-group">
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Data</label>
+										<input class="form-control dataAtual" name="textbox81" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Hora</label>
+										<input class="form-control horaAtual" name="textbox82" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+						</div>	
+						
+						<div class="form-group">
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Responsável</label>
+										<input style="width: 100%;" class="form-control" name="textbox83"  data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>
+							<div class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Nome</label>
+										<input class="form-control" name="textbox84" data-size="big" type="text" readonly>
+									</div>
+								</div>
+							</div>						
+						</div>
+						<div class="form-group">
+							<div style="position: relative; left: 0px; top: 0px;" class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>CDU</label>
+										<input required="required" data-only-numbers="true" maxlength="22" mask="#00.000.000.000.000,00" class="form-control" name="textbox85"  data-size="big" type="text">
+									</div>
+								</div>
+							</div>
+							<div style="position: relative; left: 0px; top: 0px;" class="form-field col-sm-6" data-type="textbox">
+								<div class="form-input">
+									<div class="form-group">
+										<label>Serviços</label>
+										<input required="required" data-only-numbers="true" maxlength="22" mask="#00.000.000.000.000,00" class="form-control" name="textbox86"  data-size="big" type="text">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-field" data-type="textarea">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Observações</label>
+									<textarea required="required" class="form-control" rows="3"	name="textarea87"  data-size="big"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</fieldset>	
+				
+				
+<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
+<!--  caminho feliz, questionário de ganhos -->
+				<fieldset class="atividades atividade-24">
+					
+					<legend> QUESTIONÁRIO DE GANHO </legend>
+				
+					<div>
+						<div class="form-field" data-type="combo">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Motivo do ganho</label>
+									<select	required="required" class="form-control" name="combo91" id="combo4" disabled>
+										<option value="Produto">Produto</option>
+										<option value="Suporte">Suporte</option>
+										<option value="Referencia de cliente">Referencia de cliente</option>
+										<option value="Referencia da franquia">Referencia da franquia</option>
+										<option value="Valor de serviço">Valor de serviço</option>
+										<option value="Valor de CDU/SAAS">Valor de CDU/SAAS</option>
+										<option value="Marca">Marca</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="form-field" data-type="textarea">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Observações</label>
+									<textarea required="required" class="form-control" rows="3"	name="textarea93"  data-size="big"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</fieldset>	
+				
+				
+<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
+<!--  FIM DO PROCESSO PELO CAMINHO TRISTE -->
+				<fieldset class="atividades atividade-29">
+					
+					<legend> QUESTIONÁRIO DE PERDA </legend>
+				
+					<div>
+						<!-- incluir questões -->
+						
+						<div class="form-field" data-type="combo">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Motivo do ganho</label>
+									<select	required="required" class="form-control" name="combo88" id="combo4" disabled>
+										<option value="Produto">Produto</option>
+										<option value="Suporte">Suporte</option>
+										<option value="Referencia de cliente">Referencia de cliente</option>
+										<option value="Referencia da franquia">Referencia da franquia</option>
+										<option value="Valor de serviço">Valor de serviço</option>
+										<option value="Valor de CDU/SAAS">Valor de CDU/SAAS</option>
+										<option value="Marca">Marca</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="form-field" data-type="textarea">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Observações</label>
+									<textarea required="required" class="form-control" rows="3"	name="textarea90"  data-size="big"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</fieldset>	
+
+			</form>
+		
+		</div>
+	
+		<script type="text/javascript">
+		
+			$(document).ready(function() {
+				
+				//funcao para pegar a data atual do sistema
+				data = new Date();
+				$(".dataAtual").attr("value", data.getDay()+'/'+data.getMonth()+'/'+data.getFullYear());
+				$(".horaAtual").attr("value", data.getHours()+':'+data.getMinutes()+':'+data.getSeconds());
+				
+				var atividade = $("input[name=atividade]").val();
+				$(".atividades").hide();
+
+				//displayFields
+				
+				//inicio
+				if(atividade == 0 || atividade == 1 || atividade == 4){
+		
+					$(".atividade-4").show();
+				
+				//abordagem inicial
+				} else if(atividade == 10){
+					$(".atividade-4").show();
+					$(".atividade-10").show();
+
+					desativar(atividade);
+				
+				//agendar levantamento
+				} else if(atividade == 34){
+					
+					$(".atividade-4").show();
+					$(".atividade-10").show();
+					$(".atividade-34").show();
+					
+					desativar(atividade);
+					
+				//levantamento de necessidades
+				} else if(atividade == 14){
+					
+					$(".atividade-4").show();
+					$(".atividade-10").show();
+					$(".atividade-34").show();
+					$(".atividade-14").show();
+					desativar(atividade);
+					
+				//demonstracao
+				} else if(atividade == 16){
+					
+					$(".atividade-4").show();
+					$(".atividade-10").show();
+					desativar(atividade);
+					
+					//verificar no if o que ta marcado
+					if (levantamento) {
+						$(".atividade-34").show();
+						$(".atividade-14").show();	
+					} else {
+						$(".atividade-37").show();	
+					}
+					
+					$(".atividade-16").show();
+					desativar(atividade);
+					
+				//agendar demonstracao
+				} else if(atividade == 37){
+					
+					$(".atividade-4").show();
+					$(".atividade-10").show();
+					$(".atividade-37").show();
+					desativar(atividade);
+				
+				//validar escopo
+				} else if(atividade == 18){
+					
+					$(".atividade-4").show();
+					$(".atividade-10").show();
+					
+					//verificar no if o que ta marcado
+					if (levantamento) {
+						$(".atividade-34").show();
+						$(".atividade-14").show();	
+					} else {
+						$(".atividade-37").show();	
+					}
+					
+					$(".atividade-16").show();
+					$(".atividade-18").show();
+					desativar(atividade);				
+					
+				//elaborar proposta
+				} else if(atividade == 20){
+					
+					$(".atividade-4").show();
+					$(".atividade-10").show();
+					
+					//verificar no if o que ta marcado
+					if (levantamento) {
+						$(".atividade-34").show();
+						$(".atividade-14").show();	
+					} else {
+						$(".atividade-37").show();	
+					}
+					
+					$(".atividade-16").show();
+					$(".atividade-18").show();
+					$(".atividade-20").show();
+					desativar(atividade);
+					
+				//megociar proposta
+				} else if(atividade == 22){
+					
+					$(".atividade-4").show();
+					$(".atividade-10").show();
+					
+					//verificar no if o que ta marcado
+					if (levantamento) {
+						$(".atividade-34").show();
+						$(".atividade-14").show();	
+					} else {
+						$(".atividade-37").show();	
+					}
+					
+					$(".atividade-16").show();
+					$(".atividade-18").show();
+					$(".atividade-20").show();
+					$(".atividade-22").show();
+					desativar(atividade);
+					
+				//finalização da solicitacao
+				} else if(atividade == 24) {
+					
+					$(".atividade-4").show();
+					$(".atividade-10").show();
+					
+					//verificar no if o que ta marcado
+					if (levantamento) {
+						$(".atividade-34").show();
+						$(".atividade-14").show();	
+					} else {
+						$(".atividade-37").show();	
+					}
+					
+					$(".atividade-16").show();
+					$(".atividade-18").show();
+					$(".atividade-20").show();
+					$(".atividade-22").show();
+					$(".atividade-24").show();
+					desativar(atividade);
+					
+				//cancelamento da solicitação
+				} else if(atividade == 29) {
+				
+					//tem q verificar até que etapa foi para mostrar apenas o que foi executado
+					//ver isso depois pq to com preguiça e ta na hora do almoço
+					
+					desativar(atividade);
+				}
+			});
+			
+			function desativar(atividade) {
+				var combo;	
+
+				if(atividade == 10) {
+
+					meuReadonly(4);
+					combo = $('#combo4').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo10').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo17').children("option:not(:selected)").prop ("disabled", true);
+				} else if(atividade == 34) {
+					alert("1");
+					meuReadonly(4);
+					meuReadonly(10);
+					combo = $('#combo4').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo10').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo17').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo33').children("option:not(:selected)").prop ("disabled", true);
+				} else if(atividade == 14) {
+					meuReadonly(4);
+					meuReadonly(10);
+					meuReadonly(34);
+					combo = $('#combo4').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo10').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo17').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo33').children("option:not(:selected)").prop ("disabled", true);
+				} else if(atividade == 37) {
+					meuReadonly(4);
+					meuReadonly(10);
+					combo = $('#combo4').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo10').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo17').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo33').children("option:not(:selected)").prop ("disabled", true);
+				} else if(atividade == 16) {
+					meuReadonly(4);
+					meuReadonly(10);
+					meuReadonly(34);
+					meuReadonly(14);
+					meuReadonly(37);
+					combo = $('#combo4').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo10').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo17').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo33').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo40').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo46').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo47').children("option:not(:selected)").prop ("disabled", true);
+				} else if(atividade == 18) {
+					meuReadonly(4);
+					meuReadonly(10);
+					meuReadonly(34);
+					meuReadonly(14);
+					meuReadonly(37);
+					meuReadonly(16);
+					combo = $('#combo4').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo10').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo17').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo33').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo40').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo46').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo47').children("option:not(:selected)").prop ("disabled", true);
+				} else if(atividade == 20) {
+					meuReadonly(4);
+					meuReadonly(10);
+					meuReadonly(34);
+					meuReadonly(14);
+					meuReadonly(37);
+					meuReadonly(16);
+					meuReadonly(18);
+					combo = $('#combo4').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo10').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo17').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo33').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo40').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo46').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo47').children("option:not(:selected)").prop ("disabled", true);
+				} else if(atividade == 22) {
+					meuReadonly(4);
+					meuReadonly(10);
+					meuReadonly(34);
+					meuReadonly(14);
+					meuReadonly(37);
+					meuReadonly(16);
+					meuReadonly(18);
+					meuReadonly(20);
+					combo = $('#combo4').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo10').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo17').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo33').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo40').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo46').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo47').children("option:not(:selected)").prop ("disabled", true);
+				} else if(atividade == 24) {
+					meuReadonly(4);
+					meuReadonly(10);
+					meuReadonly(34);
+					meuReadonly(14);
+					meuReadonly(37);
+					meuReadonly(16);
+					meuReadonly(18);
+					meuReadonly(20);
+					meuReadonly(22);
+					combo = $('#combo4').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo10').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo17').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo33').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo40').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo46').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo47').children("option:not(:selected)").prop ("disabled", true);
+					combo = $('#combo76').children("option:not(:selected)").prop ("disabled", true);
+				}
+
+			}
+			
+			//aplica readyonly nas atividades anteriores
+			function meuReadonly (atividade) {
+				$("input, select, textarea", $(".atividade-" + atividade)).attr('readonly', true);
+			}
+			
+			function meuteste() {
+				
+				var e = document.getElementById("combo17");
+			    var str = e.options[e.selectedIndex].text;
+			    
+				if (str == "Indicação de colaborador") {
+					 $('.huebr').attr('readonly', true);
+				} else {
+					$('.huebr').removeAttr('readonly', true);					
+				}
+			}
+		
+			//permite digitar somente numeros
+			$('body').on('keypress', '[data-only-numbers]', function(ev) {
+				var k = ev.keyCode || ev.which;
+				//Permite apagar o conteÃƒÂƒÃ‚Âºdo do campo usando as teclas 'backspace' ou 'delete' no firefox.
+				//Nos outros navegadores o keypress Não gera evento.
+				if (k == 8 || k == 46) {
+					return true;
+				}
+				k = String.fromCharCode(k);
+				if (isNaN(k)) {
+					return false;
+				}
+				return true;
+			});
+	
+			$('.create-form-components')
+					.on(
+							'keyup',
+							'input[required="required"][type="text"], input[required="required"][type="number"], input[required="required"][type="date"], textarea[required="required"]',
+							function() {
+								validationFieldsForm($(this), $(this).parents(
+										'.form-field').data('type'));
+							});
+	
+			$('.create-form-components')
+					.on(
+							'change',
+							'input[required="required"][type="checkbox"], input[required="required"][type="radio"], select[required="required"]',
+							function() {
+								validationFieldsForm($(this), $(this).parents(
+										'.form-field').data('type'));
+							});
+	
+			function validationFieldsForm(field, type) {
+				if (type === "checkbox" || type === "radio") {
+					if (!field.is(':checked')) {
+						field.parents('.form-field').addClass('required');
+					} else {
+						field.parents('.form-field').removeClass('required');
+					}
+				} else {
+					if (!field.val().trim()) {
+						field.parents('.form-field').addClass('required');
+					} else {
+						field.parents('.form-field').removeClass('required');
+					}
+				}
+			}
+	
+			var $zoomPreview = $(".zoom-preview");
+			if ($zoomPreview.length) {
+				$zoomPreview.parent().removeClass("input-group");
+				$zoomPreview.remove();
+			}
+	
+			var ratings = $(".rating");
+			if (ratings.length > 0)
+				ratingStars(ratings);
+			function ratingStars(stars) {
+				$.each(stars, function(i, obj) {
+					var field = $(this).closest(".form-group")
+							.find(".rating-value");
+					var tgt = $(obj);
+					tgt.html("");
+					var rating = FLUIGC.stars(tgt, {
+						value : field.val()
+					});
+					rating.on("click", function(o) {
+						field.val($(this).index() + 1);
+					});
+				});
+			}
+	
+			$.each($("[data-date]"), function(i, o) {
+				var id = $(o).parent().attr("id");
+				FLUIGC.calendar("#" + id);
+			});
+		</script>
+	</body>
+</html>
