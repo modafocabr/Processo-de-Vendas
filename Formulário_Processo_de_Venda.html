@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>HUE</title>
 		
 		<link rel="stylesheet" type="text/css" href="http://fluig.totvscuritiba.com.br:7080/portal/resources/style-guide/css/fluig-style-guide.min.css">
 		<script src="http://fluig.totvscuritiba.com.br:7080/portal/resources/js/jquery/jquery.js"></script>
@@ -33,13 +32,13 @@
         
     function pesquisacep(valor) {
 
-        //Nova variÃ¡vel "cep" somente com dÃ­gitos.
+        //Nova variavel "cep" somente com digitos.
         var cep = valor.replace(/\D/g, '');
 
         //Verifica se campo cep possui valor informado.
         if (cep != "") {
 
-            //ExpressÃ£o regular para validar o CEP.
+            //Expressão regular para validar o CEP.
             var validacep = /^[0-9]{8}$/;
 
             //Valida o formato do CEP.
@@ -61,9 +60,9 @@
 
             } //end if.
             else {
-                //cep Ã© invÃ¡lido.
+                //cep Ã© inválido.
                 limpa_formulario_cep();
-                alert("Formato de CEP invÃ¡lido.");
+                alert("Formato de CEP inválido.");
             }
         } //end if.
         else {
@@ -94,12 +93,12 @@
 				<img style="max-height: 50px; max-width: 250px;" src="http://fluig.totvscuritiba.com.br:7080/portal/resources/images/99/logo_image.png"	alt="Logo" id="logo">
 				
 				<h2 class="title-form-application">Processo de vendas</h2>
-				<div class="paragraph-is-required system-message-information alert alert-info" role="alert">Todos os campos com * sÃ£o de preenchimento obrigatÃ³rio.</div>
+				<div class="paragraph-is-required system-message-information alert alert-info" role="alert">Todos os campos com * são de preenchimento obrigatório.</div>
 				<input name="atividade" type="text" />
 				
 				<fieldset  class="atividades atividade-4">
 					
-					<legend> INFORMAÃ‡Ã•ES SOBRE A SOLICITAÃ‡ÃƒO </legend>
+					<legend> INFORMAÇÕES SOBRE A SOLICITAÇÃO </legend>
 				
 					<div>	
 						<div class="form-group">
@@ -144,7 +143,7 @@
 							<div class="form-input">
 								<div class="form-group">
 									<label>Fonte</label>
-									<select	required="required" class="form-control" name="combo4" id="combo4" disabled>
+									<select	required="required" class="form-control" name="combo4" id="combo4">
 										<option value="Spik">Spik</option>
 										<option value="Manual">Manual</option>
 									</select>
@@ -190,8 +189,6 @@
 					</div>
 				
 				</fieldset>
-				
-<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
 
 				<fieldset class="atividades atividade-4">
 					
@@ -243,7 +240,7 @@
 							<div class="form-field col-sm-2" data-type="textbox">
 								<div class="form-input">
 									<div class="form-group">
-										<label>NÃºmero</label><span class="required text-danger"><strong>  *</strong></span>
+										<label>Número</label><span class="required text-danger"><strong>  *</strong></span>
 										<input data-only-numbers="true" class="form-control" name="num" data-size="big" type="text">
 									</div>
 								</div>
@@ -275,7 +272,7 @@
 							<div class="form-input">
 								<div class="form-group">
 									<label>Segmento</label>
-									<select required="required" class="form-control" name="combo10">
+									<select required="required" class="form-control" name="combo10" id="combo10">
 										<option value="MANUFATURA">MANUFATURA</option>
 										<option value="AGROINDUSTRIA">AGROINDUSTRIA</option>
 										<option value="EDUCACIONAL">EDUCACIONAL</option>
@@ -295,7 +292,7 @@
 							<div style="position: relative; left: 0px; top: 0px;" class="form-field col-sm-6" data-type="textbox">
 								<div class="form-input">
 									<div class="form-group">
-										<label>FuncionÃ¡rios</label>
+										<label>Funcionários</label>
 										<input data-only-numbers="true" required="required" class="form-control" name="textbox18" data-size="big" type="text">
 									</div>
 								</div>
@@ -318,10 +315,10 @@
 										<option value="Indicação de amigo">Indicação de amigo</option>
 										<option value="Indicação de cliente">Indicação de cliente</option>
 										<option value="Indicação de colaborador">Indicação de colaborador</option>
-										<option value="ProspecÃ§Ã£o Matriz">ProspecÃ§Ã£o Matriz</option>
-										<option value="ProspecÃ§Ã£o prÃ³pria">ProspecÃ§Ã£o prÃ³pria</option>
-										<option value="ProspecÃ§Ã£o ativa">ProspecÃ§Ã£o ativa</option>
-										<option value="ProspecÃ§Ã£o receptiva">ProspecÃ§Ã£o receptiva</option>									
+										<option value="Prospecção Matriz">Prospecção Matriz</option>
+										<option value="Prospecção própria">Prospecção própria</option>
+										<option value="Prospecção ativa">Prospecção ativa</option>
+										<option value="Prospecção receptiva">Prospecção receptiva</option>									
 									</select>
 								</div>
 							</div>
@@ -382,7 +379,7 @@
 					
 				</fieldset>
 				
-<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
+
 				
 				<fieldset class="atividades atividade-4">
 					
@@ -429,7 +426,7 @@
 							<div class="form-field col-sm-6" data-type="textbox">
 								<div class="form-input">
 									<div class="form-group">
-										<label>HorÃ¡rio</label><span class="required text-danger"><strong>  *</strong></span>
+										<label>Horário</label><span class="required text-danger"><strong>  *</strong></span>
 										<input data-only-numbers="true" maxlength="8" mask="00:00:00" required="required" class="form-control" name="textbox26" data-size="big" type="text">
 									</div>
 								</div>
@@ -449,39 +446,6 @@
 					</div>
 
 				</fieldset>
-				
-				
-				
-<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
-				
-				<fieldset class="atividades atividade-4">
-					
-					<legend> APROVAÇÃO DO PROCESSO </legend>
-				
-					<div>
-						<div class="form-field" data-type="radio">
-							<div class="form-input">
-								<div class="form-group">
-									<label>Processo continua?</label><span	class="required text-danger"><strong>*</strong></span>
-									<div class="radio-options">
-										<div class="radio-inline">
-											<label><input type="radio" name="condicional90" value="Sim1" required="required">Sim, agendar levantamento!</label>
-										</div>
-										<div class="radio-inline">
-											<label><input type="radio" name="condicional90" value="Sim2" required="required">Sim, agendar demonstração!</label>
-										</div>
-										<div class="radio-inline">
-											<label><input type="radio" name="condicional90" value="Não" required="required">Não, encerrar processo!</label>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</fieldset>
-				
-									
-<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
 
 				<fieldset class="atividades atividade-10">
 					
@@ -528,7 +492,7 @@
 							<div class="form-input">
 								<div class="form-group">
 									<label>Processo</label><span class="required text-danger"><strong>  *</strong></span>
-									<select required="required" class="form-control" name="combo33">
+									<select required="required" class="form-control" name="combo33" id="combo33">
 										<option value="Continua">Continua</option>
 										<option value="Não Continua">Não Continua</option>
 										<option value="Reagendado">Reagendado</option>
@@ -540,12 +504,12 @@
 						<div class="form-field" data-type="tabledetail">
 							<div class="form-input">
 								<div class="form-group">
-									<label>HorÃ¡rios disponÃ­veis para agendamento</label><span class="required text-danger"><strong>  *</strong></span>
+									<label>Horários disponÃ­veis para agendamento</label><span class="required text-danger"><strong>  *</strong></span>
 									<table class="table">
 										<thead>
 											<tr class="tableHeadRow">
 												<th class="tableColumn" style="width:50%">Nova visita</th>
-												<th class="tableColumn" style="width:50%">HorÃ¡rio</th>
+												<th class="tableColumn" style="width:50%">Horário</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -640,7 +604,33 @@
 						<br>
 					</div>
 				</fieldset>
-<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
+				
+				<fieldset class="atividades atividade-10">
+					
+					<legend> APROVAÇÃO DO PROCESSO </legend>
+				
+					<div>
+						<div class="form-field" data-type="radio">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Processo continua?</label><span	class="required text-danger"><strong>*</strong></span>
+									<div class="radio-options">
+										<div class="radio-inline">
+											<label><input type="radio" name="condicional90" value="Sim1" required="required">Sim, agendar levantamento!</label>
+										</div>
+										<div class="radio-inline">
+											<label><input type="radio" name="condicional90" value="Sim2" required="required">Sim, agendar demonstração!</label>
+										</div>
+										<div class="radio-inline">
+											<label><input type="radio" name="condicional90" value="Não" required="required">Não, encerrar processo!</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+
 
 				<fieldset class="atividades atividade-34">
 					
@@ -654,15 +644,15 @@
 								<div class="form-input">
 									<div class="form-group">
 										<label>Data Escolhida</label><span class="required text-danger"><strong>  *</strong></span>
-										<input class="form-control" name="textbox88" data-size="big" type="text">
+										<input class="form-control dataAtual" name="textbox88" data-size="big" type="text" readonly>
 									</div>
 								</div>
 							</div>
 							<div class="form-field col-sm-6" data-type="textbox">
 								<div class="form-input">
 									<div class="form-group">
-										<label>Hora Escolhida</label><span class="required text-danger"><strong>  *</strong></span>
-										<input class="form-control" name="textbox89" data-size="big" type="text">
+										<label>Horário escolhido</label><span class="required text-danger"><strong>  *</strong></span>
+										<input data-only-numbers="true" maxlength="8" mask="00:00:00" required="required" class="form-control" name="textbox89" data-size="big" type="text">
 									</div>
 								</div>
 							</div>
@@ -679,8 +669,6 @@
 					</div>
 					
 				</fieldset>
-				
-<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
 
 				<fieldset class="atividades atividade-14">
 					
@@ -727,11 +715,15 @@
 							<div class="form-input">
 								<div class="form-group">
 									<label>Produto</label>
-									<select required="required" class="form-control" name="combo40">
+									<select required="required" class="form-control" name="combo40" id="combo40">
 										<option value="Datasul">Datasul</option>
 										<option value="Logix">Logix</option>
 										<option value="Protheus">Protheus</option>
 										<option value="RM">RM</option>
+										<option value="PC Sistemas">PC Sistemas</option>
+										<option value="Virtual Age">Virtual Age</option>
+										<option value="RMS">RMS</option>
+										<option value="Fluig">Fluig</option>
 									</select>
 								</div>
 							</div>
@@ -781,22 +773,31 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<div class="form-field col-sm-6" data-type="combo">
-								<div class="form-input">
-									<div class="form-group">
-										<label>Segmento</label>
-										<select required="required" class="form-control" name="combo46">
-											<option value="opcao 1">opcao 1</option>
-											<option value="opcao 2">opcao 2</option>
-										</select>
-									</div>
+						<div class="form-field col-sm-6" data-type="combo">
+							<div class="form-input">
+								<div class="form-group">
+									<label>Segmento</label>
+									<select required="required" class="form-control" name="combo46" id="combo46">
+										<option value="MANUFATURA">MANUFATURA</option>
+										<option value="AGROINDUSTRIA">AGROINDUSTRIA</option>
+										<option value="EDUCACIONAL">EDUCACIONAL</option>
+										<option value="SAUDE">SAUDE</option>
+										<option value="CONSTRUCAO E PROJETOS">CONSTRUCAO E PROJETOS</option>
+										<option value="FINANCIAL SERVICES">FINANCIAL SERVICES</option>
+										<option value="JURIDICO">JURIDICO</option>
+										<option value="VAREJO">VAREJO</option>
+										<option value="SERVICOS">SERVICOS</option>
+										<option value="DISTRIBUICAO">DISTRIBUICAO</option>
+										<option value="LOGISTICA">LOGISTICA</option>
+									</select>
 								</div>
 							</div>
+						</div>
 							<div class="form-field col-sm-6" data-type="combo">
 								<div class="form-input">
 									<div class="form-group">
 										<label>Subsegmento</label>
-										<select required="required" class="form-control" name="combo47" disabled>
+										<select required="required" class="form-control" name="combo47" id="combo47">
 											<option value="opcao 1">opcao 1</option>
 											<option value="opcao 2">opcao 2</option>
 										</select>
@@ -809,7 +810,7 @@
 						<div class="form-field" data-type="tabledetail">
 							<div class="form-input">
 								<div class="form-group">
-									<label>Motivos da busca/troca de soluÃ§Ã£o</label>
+									<label>Motivos da busca/troca de solução</label>
 									<table tablename="tabledetailname2" class="table" noaddbutton="true">
 										<thead>
 											<tr class="tableHeadRow">
@@ -865,7 +866,7 @@
 						<div class="form-field" data-type="tabledetail">
 							<div class="form-input">
 								<div class="form-group">
-									<label>SugestÃ£o de escopo inicial</label>
+									<label>Sugestão de escopo inicial</label>
 									<table tablename="tabledetailname3" class="table" noaddbutton="true">
 										<thead>
 											<tr class="tableHeadRow">
@@ -921,7 +922,7 @@
 						<div class="form-field" data-type="tabledetail">
 							<div class="form-input">
 								<div class="form-group">
-									<label>Plano de aÃ§Ã£o</label>
+									<label>Plano de ação</label>
 									<table tablename="tabledetailname5" class="table" noaddbutton="true">
 										<thead>
 											<tr class="tableHeadRow">
@@ -949,7 +950,7 @@
 						<div class="form-field" data-type="textarea">
 							<div class="form-input">
 								<div class="form-group">
-									<label>PercepÃ§Ã£o do EAR</label>
+									<label>Percepção do EAR</label>
 									<textarea required="required" class="form-control" rows="3"
 										name="textarea52"  data-size="big"></textarea>
 								</div>
@@ -958,13 +959,10 @@
 						<br>
 					</div>
 				</fieldset>
-				
-
-<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
 
 				<fieldset class="atividades atividade-16">
 					
-					<legend> DEMONSTRAÃ‡ÃƒO </legend>
+					<legend> DEMONSTRAÇÃO </legend>
 				
 					<div>
 						<div class="form-group">
@@ -1014,8 +1012,6 @@
 						<br>
 					</div>
 				</fieldset>
-
-<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
 
 				<fieldset class="atividades atividade-18">
 					
@@ -1071,7 +1067,7 @@
 				</fieldset>
 				
 				
-<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
+
 				
 				<fieldset class="atividades atividade-18">
 					
@@ -1095,9 +1091,6 @@
 						</div>
 					</div>
 				</fieldset>
-				
-
-<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
 
 				<fieldset class="atividades atividade-20">
 					
@@ -1152,8 +1145,6 @@
 					</div>
 				</fieldset>
 				
-<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
-				
 				<fieldset class="atividades atividade-20">
 					
 					<legend> APROVAÇÃO DO PROCESSO </legend>
@@ -1176,8 +1167,6 @@
 						</div>
 					</div>
 				</fieldset>
-
-<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
 
 				<fieldset class="atividades atividade-22">
 					
@@ -1224,7 +1213,7 @@
 							<div class="form-input">
 								<div class="form-group">
 									<label>Venda</label>
-									<select required="required" class="form-control" name="combo76">
+									<select required="required" class="form-control" name="combo76" id="combo76">
 										<option value="Concretizada">Concretizada</option>
 										<option value="Não Concretizada">Não Concretizada</option>
 									</select>
@@ -1242,9 +1231,7 @@
 						<br>
 					</div>
 				</fieldset>
-				
-<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
-				
+
 				<fieldset class="atividades atividade-22">
 					
 					<legend> APROVAÇÃO DO PROCESSO </legend>
@@ -1267,8 +1254,6 @@
 						</div>
 					</div>
 				</fieldset>
-
-<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
 
 				<fieldset class="atividades atividade-24">
 					
@@ -1340,9 +1325,7 @@
 						</div>
 					</div>
 				</fieldset>	
-				
-				
-<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
+
 <!--  caminho feliz, questionário de ganhos -->
 				<fieldset class="atividades atividade-24">
 					
@@ -1353,7 +1336,7 @@
 							<div class="form-input">
 								<div class="form-group">
 									<label>Motivo do ganho</label>
-									<select	required="required" class="form-control" name="combo91" id="combo4" disabled>
+									<select	required="required" class="form-control" name="combo91" id="combo4">
 										<option value="Produto">Produto</option>
 										<option value="Suporte">Suporte</option>
 										<option value="Referencia de cliente">Referencia de cliente</option>
@@ -1376,8 +1359,6 @@
 					</div>
 				</fieldset>	
 				
-				
-<!--  HUEEEEEEEEEEEEEEEEEEEEEEEEEEE  -->
 <!--  FIM DO PROCESSO PELO CAMINHO TRISTE -->
 				<fieldset class="atividades atividade-29">
 					
@@ -1390,7 +1371,7 @@
 							<div class="form-input">
 								<div class="form-group">
 									<label>Motivo do ganho</label>
-									<select	required="required" class="form-control" name="combo88" id="combo4" disabled>
+									<select	required="required" class="form-control" name="combo88" id="combo4">
 										<option value="Produto">Produto</option>
 										<option value="Suporte">Suporte</option>
 										<option value="Referencia de cliente">Referencia de cliente</option>
